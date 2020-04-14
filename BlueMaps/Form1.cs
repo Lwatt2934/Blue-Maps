@@ -10,11 +10,48 @@ using System.Windows.Forms;
 
 namespace BlueMaps
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string street = txtBoxStreet.Text;
+            string city = txtBoxCity.Text;
+            string state = txtBoxState.Text;
+            string zipcode = txtBoxZip.Text;
+            
+            try
+            {
+                StringBuilder queryData = new StringBuilder();
+                queryData.Append("http://maps.google.com/maps?q=");
+
+                if (street != string.Empty)
+                {
+                    queryData.Append(street + "," + "+");
+                }
+                if (city != string.Empty)
+                {
+                   queryData.Append(city + "," + "+");
+                }
+                if (state != string.Empty)
+                {
+                    queryData.Append(state + "," + "+");
+                }
+                if (zipcode != string.Empty)
+                {
+                    queryData.Append(zipcode + "," + "+");
+                }
+                webBrowser1.Navigate(queryData.ToString());
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message.ToString(), "Error");
+            }
         }
     }
 }
